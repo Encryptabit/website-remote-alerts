@@ -11,7 +11,8 @@ sharedMappings.register(
 module.exports = {
   output: {
     uniqueName: "websiteRemoteAlerts",
-    publicPath: "auto"
+    publicPath: "http://localhost:1338/",
+    scriptType: 'text/javascript'
   },
   optimization: {
     runtimeChunk: false
@@ -26,21 +27,12 @@ module.exports = {
   },
   plugins: [
     new ModuleFederationPlugin({
-        library: { type: "module" },
-
-        // For remotes (please adjust)
-        // name: "websiteRemoteAlerts",
-        // filename: "remoteEntry.js",
-        // exposes: {
-        //     './Component': './/src/app/app.component.ts',
-        // },        
-        
-        // For hosts (please adjust)
-        // remotes: {
-        //     "mfe1": "http://localhost:3000/remoteEntry.js",
-
-        // },
-
+       // For remotes (please adjust)
+        name: "notificationPreferences",
+        filename: "remoteEntry.js",
+        exposes: {
+            './Module': './/src/app/components/notification-preferences/notification-preferences.module.ts'
+        },
         shared: share({
           "@angular/core": { singleton: true, strictVersion: true, requiredVersion: 'auto' }, 
           "@angular/common": { singleton: true, strictVersion: true, requiredVersion: 'auto' }, 
